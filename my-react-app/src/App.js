@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/home";
+import Login from "./pages/login";
+import User from "./pages/user";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setToken,
+  userProfileData,
+  setFirstName,
+  setLastName,
+  setUserName,
+} from "./features/userSlice";
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.user.token);
+
+  useEffect(() => {
+    if (token) {
+      // récupération des données du profil de l'utilisateur à partir du serveur
+      dispatch(userProfileData()).then((resultAction) => {
+        // extrait les données du profil de la réponse
+        const { firstName, lastName, userName } = resultAction.payload.body;
+
+        // mise à jour le store Redux avec les données du profil
+        dispatch(setFirstName(firstName));
+        dispatch(setLastName(lastName));
+        dispatch(setUserName(userName));
+      });
+    }
+  }, [token, dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/user" element={<User />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
