@@ -5,6 +5,7 @@ import Login from "./pages/login";
 import User from "./pages/user";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  // eslint-disable-next-line no-unused-vars
   setToken,
   userProfileData,
   setFirstName,

@@ -15,7 +15,7 @@ const Navigation = () => {
 
   // Fonction pour gérer la déconnexion de l'utilisateur
   const handleLogOut = () => {
-    dispatch(setToken(null)); // Suppression du token du store Redux en le mettant à null
+    dispatch(setToken()); // Suppression du token du store Redux en le mettant à null
     localStorage.removeItem("token");
   };
 
@@ -24,7 +24,7 @@ const Navigation = () => {
       <NavLink className="main-nav-logo" to={token ? "/user" : "/"}>
         <img
           className="main-nav-logo-image"
-          src="./img/argentBankLogo.png"
+          src="../src/assets/img/argentBankLogo.png"
           alt=""
         />
         <h1 className="sr-only">Argent Bank</h1>

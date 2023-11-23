@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMeisChecked, setRememberMeisChecked] = useState(false);
+  const [rememberMeIsChecked, setrememberMeIsChecked] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -24,12 +24,12 @@ const SignInForm = () => {
       const resData = res.payload;
       const token = resData.body.token; // récupération du token de la réponse de la requête d'authentification.
 
-      dispatch(setToken(token)); // mise à jour le store Redux avec le token
+      dispatch(setToken(token)); // mise à jour du store Redux avec le token
 
-      if (token && rememberMeisChecked) {
+      if (token && rememberMeIsChecked) {
         navigate("/user");
         localStorage.setItem("token", token);
-      } else if (token && !rememberMeisChecked) {
+      } else if (token && !rememberMeIsChecked) {
         navigate("/user");
       }
     } catch (error) {
@@ -70,7 +70,7 @@ const SignInForm = () => {
           <input
             type="checkbox"
             id="remember-me"
-            onChange={() => setRememberMeisChecked(!rememberMeisChecked)}
+            onChange={() => setrememberMeIsChecked(!rememberMeIsChecked)}
           />
         </div>
         <Button

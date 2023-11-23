@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Navigation from "../../components/navigation";
 import Footer from "../../components/footer";
-import Account from "../components/Account";
+import Account from "../../components/account";
 import Button from "../../components/button";
 import EditUserNameModal from "../../components/editUserNameModal";
 import { useNavigate } from "react-router-dom";
