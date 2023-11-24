@@ -1,6 +1,8 @@
 # IDE files
 .idea
 
+.bat
+
 # Logs
 logs
 *.log
