@@ -38,7 +38,7 @@ const EditUserNameModal = ({ onClose }) => {
           <dialog open>
             <div className="modal-background">
               <FontAwesomeIcon icon={faUserPen} className="icon" />
-              <h1>Edit User infos</h1>
+              <h2>Edit User infos</h2>
               <form action="" className="modal-form">
                 <div className="modal-input-wrapper">
                   <label htmlFor="username">User name:</label>

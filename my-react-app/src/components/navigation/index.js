@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import ArgentBankLogo from "../../assets/img/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleUser,
   faRightFromBracket,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
-import { setToken } from "../../features/userSlice";
+import {
+  setToken,
+  userProfileData,
+  setFirstName,
+  setLastName,
+  setUserName,
+} from "../../features/userSlice";
 
 const Navigation = () => {
   const token = useSelector((state) => state.user.token);
   const userName = useSelector((state) => state.user.userName);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (token) {
+      // récupération des données du profil de l'utilisateur à partir du serveur
+      dispatch(userProfileData()).then((resultAction) => {
+        // extrait les données du profil de la réponse
+        const { firstName, lastName, userName } = resultAction.payload.body;
+
+        // mise à jour le store Redux avec les données du profil
+        dispatch(setFirstName(firstName));
+        dispatch(setLastName(lastName));
+        dispatch(setUserName(userName));
+      });
+    }
+  }, [token, dispatch]);
 
   // Fonction pour gérer la déconnexion de l'utilisateur
   const handleLogOut = () => {
@@ -22,11 +44,7 @@ const Navigation = () => {
   return (
     <nav className="main-nav">
       <NavLink className="main-nav-logo" to={token ? "/user" : "/"}>
-        <img
-          className="main-nav-logo-image"
-          src="../src/assets/img/argentBankLogo.png"
-          alt=""
-        />
+        <img className="main-nav-logo-image" src={ArgentBankLogo} alt="" />
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       {token ? (
