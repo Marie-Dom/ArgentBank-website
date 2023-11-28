@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../button";
+import { Link } from "react-router-dom";
 
 const Account = ({ title, amount, description, number }) => {
   return (
@@ -12,7 +13,9 @@ const Account = ({ title, amount, description, number }) => {
         <p className="account-amount-description">{description}</p>
       </div>
       <div className="account-content-wrapper cta">
-        <Button title="View transactions" className={"transaction-button"} />
+        <Link to="/checkTransac" style={{ textDecoration: "none" }}>
+          <Button title="View transactions" className={"transaction-button"} />
+        </Link>
       </div>
     </section>
   );
