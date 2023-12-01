@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "../button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";

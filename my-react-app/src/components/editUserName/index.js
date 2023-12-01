@@ -29,9 +29,9 @@ const EditUserName = () => {
   const lastName = useSelector((state) => state.user.lastName);
 
   return (
-    <div>
+    <div className="div-edit-form">
       <FontAwesomeIcon icon={faUserPen} className="icon" />
-      <h1>Edit User infos</h1>
+      <h2>Edit User infos</h2>
       <form action="" className="edit-form">
         <div className="input-wrapper">
           <label htmlFor="username">User name:</label>

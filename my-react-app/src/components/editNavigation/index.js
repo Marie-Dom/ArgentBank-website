@@ -1,8 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import User from "../../pages/user";
-import Home from "../../pages/home";
-import Login from "../../pages/login";
+import { Link } from "react-router-dom";
+// import User from "../../pages/user";
+// import Home from "../../pages/home";
+// import Login from "../../pages/login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleUser,
@@ -14,15 +14,15 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   setToken,
   //   userProfileData,
-  setFirstName,
-  setLastName,
+  // setFirstName,
+  // setLastName,
   //   setUserName,
 } from "../../features/userSlice";
 
 const EditNavigation = () => {
   const IsConnected = useSelector(setToken);
-  const UserFirstName = useSelector(setFirstName);
-  const UserLastName = useSelector(setLastName);
+  // const UserFirstName = useSelector(setFirstName);
+  // const UserLastName = useSelector(setLastName);
   // const UserName = useSelector(setUserName);
   const dispatch = useDispatch();
 
@@ -34,79 +34,62 @@ const EditNavigation = () => {
 
   return (
     <nav className="main-nav">
-      <div>
+      <div className={"main-nav-logo"}>
         <FontAwesomeIcon
           icon={faVault}
+          className="icon"
           style={{
-            fontSize: "30px",
             color: "#00bc77",
-            paddingBottom: "4px",
-            marginTop: "20px",
-            paddingLeft: "20px",
           }}
         />
 
         <h1
           style={{
-            fontSize: "20px",
             color: "#00bc77",
-            marginTop: "20px",
             paddingLeft: "10px",
           }}
         >
           Argent Bank
         </h1>
       </div>
-      <div>
+      <div className="main-nav">
         {IsConnected ? (
           <>
-            <span
-              style={{
-                fontSize: "16px",
-                color: "#00bc77",
-                textDecoration: "none",
-              }}
-            >
-              {`${UserFirstName} - ${UserLastName}`}{" "}
-            </span>
-            &nbsp;&nbsp;
-            <NavLink to={<User />} className="main-nav-item">
+            <Link to="/user" className="main-nav-item main-nav a">
               <FontAwesomeIcon
                 icon={faCircleUser}
-                style={{ fontSize: "30px", color: "#00bc77" }}
+                className="icon"
+                style={{ color: "#00bc77" }}
               />
-            </NavLink>
-            &nbsp;&nbsp;&nbsp;&nbsp;
+            </Link>
+
             <FontAwesomeIcon
               icon={faGear}
+              className="icon"
               style={{
-                fontSize: "23px",
                 color: "#00bc77",
-                paddingBottom: "4px",
-                marginTop: "20px",
               }}
             />
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <NavLink
-              to={<Home />}
-              className="main-nav-item"
+
+            <Link
+              to="/"
+              className="main-nav-item, main-nav a"
               onClick={handleLogOut}
             >
               <FontAwesomeIcon
                 icon={faPowerOff}
+                className="icon"
                 style={{
-                  fontSize: "23px",
                   color: " #00bc77",
-                  paddingBottom: "4px",
                 }}
               />
-            </NavLink>
+            </Link>
           </>
         ) : (
-          <NavLink to={<Login />} className="main-nav-item">
-            <FontAwesomeIcon icon={faCircleUser} />
+          <Link to="/login" className="main-nav-item, main-nav a">
+            <FontAwesomeIcon icon={faCircleUser} className="icon" />
             &nbsp; Sign In
-          </NavLink>
+          </Link>
         )}
       </div>
     </nav>

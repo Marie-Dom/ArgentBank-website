@@ -183,14 +183,24 @@ body {
   color: #fff;
 }
 
-.sign-in-content,
-.edit-form {
+.sign-in-content {
   box-sizing: border-box;
   background-color: white;
   width: 300px;
   margin: 0 auto;
   margin-top: 3rem;
   padding: 2rem;
+}
+
+.edit-form {
+  width: 150px;
+  box-sizing: border-box;
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+.div-edit-form {
+  margin-bottom: 2rem;
 }
 
 .sign-in-icon {
@@ -228,7 +238,7 @@ body {
 
 .input-wrapper input {
   padding: 5px;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 .icon {
@@ -253,13 +263,13 @@ body {
   align-items: center;
   border-radius: 5px;
   background-color: black;
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   flex-direction: row;
   padding: 1.5rem;
   box-sizing: border-box;
   text-align: left;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .account {
