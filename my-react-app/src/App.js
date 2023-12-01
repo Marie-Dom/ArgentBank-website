@@ -3,7 +3,6 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import User from "./pages/user";
 import EditUserInfos from "./pages/editUserInfos";
-// import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
   return (

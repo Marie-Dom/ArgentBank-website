@@ -13,7 +13,7 @@ const Account = ({ title, amount, description, number }) => {
         <p className="account-amount-description">{description}</p>
       </div>
       <div className="account-content-wrapper cta">
-        <Link to="/checkTransac" style={{ textDecoration: "none" }}>
+        <Link to="/checkTransactions" style={{ textDecoration: "none" }}>
           <Button title="View transactions" className={"transaction-button"} />
         </Link>
       </div>

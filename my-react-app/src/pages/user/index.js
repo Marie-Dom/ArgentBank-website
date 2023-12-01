@@ -3,17 +3,9 @@ import { useSelector } from "react-redux";
 import Navigation from "../../components/navigation";
 import Footer from "../../components/footer";
 import Account from "../../components/account";
-import Button from "../../components/button";
-import EditUserInfos from "../editUserInfos";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const User = () => {
-  // const [handleModal, setHandleModal] = useState(false);
-
-  // const toggleModal = () => {
-  //   setHandleModal(!handleModal);
-  // };
-
   const userName = useSelector((state) => state.user.userName);
   const token = useSelector((state) => state.user.token);
   const navigate = useNavigate();
@@ -34,31 +26,27 @@ const User = () => {
             Welcome back <br></br>
             {userName}!
           </h1>{" "}
-          <Button
-            title="Edit name"
-            className={"edit-button"}
-            onClick={<EditUserInfos />}
-          />
-          {/* {handleModal && <EditUserNameModal onClose={toggleModal} />} */}
+          <Link to="/editUserInfos">
+            <button className="edit-button">Edit Name</button>
+          </Link>
         </div>
-        <h2 class="sr-only">Accounts</h2>
-        <section class="account">
-          <Account
-            title={"Argent Bank Checking "}
-            number={8349}
-            amount={"$2,082.79"}
-          />
-          <Account
-            title={"Argent Bank savings "}
-            number={6712}
-            amount={"$10,928.42"}
-          />
-          <Account
-            title={"Argent Bank Credit Card "}
-            number={8349}
-            amount={"$184.30"}
-          />
-        </section>
+        <h2 className="sr-only">Accounts</h2>
+
+        <Account
+          title={"Argent Bank Checking "}
+          number={8349}
+          amount={"$2,082.79"}
+        />
+        <Account
+          title={"Argent Bank savings "}
+          number={6712}
+          amount={"$10,928.42"}
+        />
+        <Account
+          title={"Argent Bank Credit Card "}
+          number={8349}
+          amount={"$184.30"}
+        />
       </div>
 
       <Footer />

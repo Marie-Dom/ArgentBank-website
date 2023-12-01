@@ -5,16 +5,9 @@ import { faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { setUserName, editUserName } from "../../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-// const EditUserNameModal = ({ onClose }) => {
 const EditUserName = () => {
-  // const [isOpen, setIsOpen] = useState(true);
   const [error, setError] = useState(null);
   const [newUserName, setNewUserName] = useState("");
-
-  // const closeModal = () => {
-  //   setIsOpen(false);
-  //   onClose();
-  // };
 
   const dispatch = useDispatch();
 
@@ -23,7 +16,6 @@ const EditUserName = () => {
     if (newUserName !== "") {
       dispatch(setUserName(newUserName)); // Si un nouveau nom d'utilisateur est saisi, mise à jour du store Redux avec le nouveau nom.
       dispatch(editUserName()); // Lance une action pour effectuer la modification du nom d'utilisateur côté serveur.
-      // closeModal();
     } else if (newUserName === "") {
       setError("Please fill in all the required fields."); // Si le champ du nouveau nom d'utilisateur est vide, affiche un message d'erreur.
     }
@@ -47,7 +39,6 @@ const EditUserName = () => {
             type="text"
             id="username"
             name="username"
-            // className="edit-input"
             onChange={(e) => setNewUserName(e.target.value)}
           />
         </div>{" "}
@@ -58,7 +49,6 @@ const EditUserName = () => {
             id="firstName"
             name="firstName"
             placeholder={firstName}
-            // className="edit-input"
             disabled
           />
         </div>{" "}
@@ -68,7 +58,6 @@ const EditUserName = () => {
             type="text"
             id="lastName"
             name="lastName"
-            // className="edit-input"
             placeholder={lastName}
             disabled
           />

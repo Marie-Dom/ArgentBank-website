@@ -47,7 +47,7 @@ const SignInForm = () => {
       <FontAwesomeIcon icon={faCircleUser} className="sign-in-icon" />
       <h1>Sign In</h1>
       {error && <p className="error-message">{error}</p>}{" "}
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="input-wrapper">
           <label htmlFor="email">Email</label>
           <input
@@ -75,11 +75,9 @@ const SignInForm = () => {
             onChange={() => setRememberMeIsChecked(!rememberMeIsChecked)}
           />
         </div>
-        <Button
-          title="Sign In"
-          className={"sign-in-button"}
-          onClick={handleSubmit}
-        />
+        <button type="submit" className="sign-in-button">
+          Sign In
+        </button>
       </form>
     </section>
   );

@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-library.add(fas);
 const TransactionsUser = () => {
   return (
     <div>
@@ -17,7 +15,7 @@ const TransactionsUser = () => {
         <div className="account-content-wrapper cta">
           <Link to="/checkTransaction">
             <FontAwesomeIcon
-              icon="fa-solid fa-chevron-right"
+              icon={faChevronRight}
               style={{ color: "white", fontSize: "50px" }}
             />
           </Link>
