@@ -1,8 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import User from "../../pages/user";
-// import Home from "../../pages/home";
-// import Login from "../../pages/login";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleUser,
@@ -11,19 +8,11 @@ import {
   faPowerOff,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setToken,
-  //   userProfileData,
-  // setFirstName,
-  // setLastName,
-  //   setUserName,
-} from "../../features/userSlice";
+import { setToken } from "../../features/userSlice";
 
-const EditNavigation = () => {
-  const IsConnected = useSelector(setToken);
-  // const UserFirstName = useSelector(setFirstName);
-  // const UserLastName = useSelector(setLastName);
-  // const UserName = useSelector(setUserName);
+const EditHeader = () => {
+  const token = useSelector((state) => state.user.token);
+  const userName = useSelector((state) => state.user.userName);
   const dispatch = useDispatch();
 
   // Fonction pour gérer la déconnexion de l'utilisateur
@@ -53,8 +42,9 @@ const EditNavigation = () => {
         </h1>
       </div>
       <div className="main-nav">
-        {IsConnected ? (
+        {token ? (
           <>
+            <span style={{ color: "#00bc77" }}>{userName}</span>
             <Link to="/user" className="main-nav-item main-nav a">
               <FontAwesomeIcon
                 icon={faCircleUser}
@@ -96,4 +86,4 @@ const EditNavigation = () => {
   );
 };
 
-export default EditNavigation;
+export default EditHeader;

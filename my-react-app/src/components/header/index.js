@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import ArgentBankLogo from "../../assets/img/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,7 +15,7 @@ import {
   setUserName,
 } from "../../features/userSlice";
 
-const Navigation = () => {
+const Header = () => {
   const token = useSelector((state) => state.user.token);
   const userName = useSelector((state) => state.user.userName);
   const dispatch = useDispatch();
@@ -41,10 +41,24 @@ const Navigation = () => {
     localStorage.removeItem("token");
   };
 
+  const location = useLocation();
+
+  // Vérifie si la route actuelle est "/editUserInfos"
+  if (
+    location.pathname === "/editUserInfos" ||
+    location.pathname === "/checkTransactions"
+  ) {
+    return null; // Ne pas afficher le Header sur la page EditUserInfos
+  }
+
   return (
     <nav className="main-nav">
       <NavLink className="main-nav-logo" to={token ? "/user" : "/"}>
-        <img className="main-nav-logo-image" src={ArgentBankLogo} alt="" />
+        <img
+          className="main-nav-logo-image"
+          src={ArgentBankLogo}
+          alt="ArgentBank Logo"
+        />
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       {token ? (
@@ -70,4 +84,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+export default Header;

@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import Navigation from "../../components/navigation";
-import Footer from "../../components/footer";
 import Account from "../../components/account";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -19,7 +17,6 @@ const User = () => {
 
   return (
     <div className="page">
-      <Navigation />
       <div className="main bg-dark">
         <div className="header">
           <h1>
@@ -48,8 +45,6 @@ const User = () => {
           amount={"$184.30"}
         />
       </div>
-
-      <Footer />
     </div>
   );
 };

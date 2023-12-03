@@ -1,8 +1,6 @@
 import React from "react";
-import Navigation from "../../components/navigation";
 import Hero from "../../components/hero";
 import FeatureInfo from "../../features/featureInfo";
-import Footer from "../../components/footer";
 import Chat from "../../assets/img/icon-chat.png";
 import Money from "../../assets/img/icon-money.png";
 import Security from "../../assets/img/icon-security.png";
@@ -10,7 +8,6 @@ import Security from "../../assets/img/icon-security.png";
 const Home = () => {
   return (
     <div>
-      <Navigation />
       <Hero />
       <section className="features">
         <FeatureInfo
@@ -35,7 +32,6 @@ const Home = () => {
           }
         />
       </section>
-      <Footer />
     </div>
   );
 };
