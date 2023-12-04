@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 const EditUserName = () => {
   const [error, setError] = useState(null);
   const [newUserName, setNewUserName] = useState("");
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -16,6 +18,7 @@ const EditUserName = () => {
     if (newUserName !== "") {
       dispatch(setUserName(newUserName)); // Si un nouveau nom d'utilisateur est saisi, mise à jour du store Redux avec le nouveau nom.
       dispatch(editUserName()); // Lance une action pour effectuer la modification du nom d'utilisateur côté serveur.
+      navigate("/user");
     } else if (newUserName === "") {
       setError("Please fill in all the required fields."); // Si le champ du nouveau nom d'utilisateur est vide, affiche un message d'erreur.
     }

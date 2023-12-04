@@ -1,0 +1,330 @@
+swagger: "2.0"
+info:
+  title: Bank Argent API documentation
+  description: Contains all available API endpoints in this codebase
+  version: 1.0.0
+  termsOfService: http://swagger.io/terms/
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+paths:
+  /user/currentMonth/accounts:
+    get:
+      tags:
+        - Accounts Module
+      summary: Get all accounts for the current month
+      description: Show a list of the accounts for the current month
+      parameters:
+        - in: header
+          name: token
+          type: integer
+          description: token of the account
+          required: true
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Get accounts successfully
+          schema:
+            $ref: "#/definitions/accounts"
+        "400":
+          description: Invalid Fields
+        "401":
+          description: Unauthorized - Token is missing or invalid
+        "403":
+          description: Forbidden - User does not have permission
+        "500":
+          description: Internal Server Error
+
+  /user/currentMonth/accounts/{accountId}:
+    get:
+      tags:
+        - Accounts Module
+      summary: Account detail
+      description: API for retrieving account details
+      parameters:
+        - in: header
+          name: token
+          type: integer
+          description: token of the account
+          required: true
+        - in: path
+          name: accountId
+          type: integer
+          description: accountId of the account
+          required: true
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: User account has been successfully retrieved
+          schema:
+            $ref: "#/definitions/accountId"
+        "400":
+          description: Invalid Fields
+        "401":
+          description: Unauthorized - Token is missing or invalid
+        "403":
+          description: Forbidden - User does not have permission
+        "500":
+          description: Internal Server Error
+
+  /user/currentMonth/accounts/{accountId}/transactions:
+    get:
+      tags:
+        - Transactions Module
+      summary: Get all transactions for the current month
+      description:
+        "Retrieve a list of transactions for the current month, for the selected account"
+      parameters:
+        - in: header
+          name: token
+          type: integer
+          description: token of the account
+          required: true
+        - in: path
+          name: accountId
+          type: integer
+          description: ID of the account
+          required: true
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Transactions"
+        "400":
+          description: Invalid Fields
+        "401":
+          description: Unauthorized - Token is missing or invalid
+        "403":
+          description: Forbidden - User does not have permission
+        "500":
+          description: Internal Server Error
+
+  /user/currentMonth/accounts/{accountId}/transactions/{transactionId}:
+    get:
+      tags:
+        - Transactions Module
+      summary: Get details of a specific transaction
+      description: "Retrieve detailed information about a specific transaction"
+      security:
+        - Bearer: []
+      parameters:
+        - in: header
+          name: token
+          type: integer
+          description: token of the account
+          required: true
+        - in: path
+          name: accountId
+          type: integer
+          description: accountId of the account
+          required: true
+        - name: transactionId
+          in: path
+          description: ID of the transaction to retrieve
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/TransactionId"
+        "401":
+          description: Unauthorized - Token is missing or invalid
+        "403":
+          description: Forbidden - User does not have permission
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+
+  /user/currentMonth/accounts/{accountId}/transactions/{transactionId}/{categories}/{categoryId}:
+    patch:
+      tags:
+        - Transactions Module
+      summary: Change the category of a specific transaction
+      description:
+        Modifying details of a specific transaction
+      security:
+        - Bearer: []
+      parameters:
+        - in: header
+          name: token
+          type: integer
+          description: token of the account
+          required: true
+        - in: path
+          name: accountId
+          type: integer
+          description: accountId of the account
+          required: true
+        - in: path
+          name: transactionId
+          type: integer
+          description: transactionId of the account
+          required: true
+        - in: path
+          name: categories
+          type: integer
+          description: categories list
+          required: true
+        - in: path
+          name: categoryId
+          type: integer
+          description: categoryId
+          required: true
+      produces:
+        - application/merge-patch+json
+      responses:
+        "200":
+          description: Transaction's category has been successfully modified
+          schema:
+            $ref: "#/definitions/categoryId"
+        "400":
+          description: Invalid Fields
+        "401":
+          description: Unauthorized - Token is missing or invalid
+        "403":
+          description: Forbidden - User does not have permission
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+
+  /user/currentMonth/accounts/{accountId}/transactions/{transactionId}/note:
+    patch:
+      tags:
+        - Transactions Module
+      summary: Change the transaction note
+      description: API for change the transaction note
+      produces:
+        - application/merge-patch+json
+      parameters:
+        - in: header
+          name: user token
+          type: integer
+          description: token of the account
+          required: true
+        - in: path
+          name: accountId
+          type: integer
+          description: accountId of the account
+          required: true
+        - in: path
+          name: transactionId
+          type: integer
+          description: transactionId of the account
+          required: true
+        - in: body
+          name: note
+          description: note of the transaction
+          schema:
+            $ref: "#/definitions/Note"
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: Note's Transaction has been successfully modified
+          schema:
+            $ref: "#/definitions/Note"
+        "400":
+          description: Invalid Fields
+        "401":
+          description: Unauthorized - Token is missing or invalid
+        "403":
+          description: Forbidden - User does not have permission
+        "404":
+          description: Transaction not found
+        "500":
+          description: Internal Server Error
+          
+definitions:
+  accounts:
+    type: object
+    properties:
+      accounts:
+        type: array
+        items:
+          $ref: "#/definitions/accounts"
+
+  accountId:
+    type: object
+    properties:
+      accountId:
+        type: number
+        description: account id
+      name:
+        type: string
+        description: account name
+      balance:
+        type: number
+        description: account balance
+
+  Transactions:
+    type: object
+    properties:
+      transactions:
+        type: array
+        items:
+          $ref: "#/definitions/Transactions"
+
+  TransactionId:
+    type: object
+    properties:
+      transactionId:
+        type: number
+      date:
+        type: number
+        description: transaction date
+      description:
+        type: string
+        description: transaction description
+      amount:
+        type: number
+        description: amount number
+      balance:
+        type: number
+        description: balance number
+      transactionType:
+        type: string
+        description: transaction type
+      categories:
+        type: array
+        items:
+          type: object
+          properties:
+            categoryId:
+              type: number
+            label:
+              type: string
+      note:
+        type: string
+
+  categoryId:
+    type: object
+    properties:
+      categoryId:
+        type: number
+
+  Note:
+    type: object
+    properties:
+      note:
+        type: "string"
