@@ -14,12 +14,12 @@ securityDefinitions:
     name: Authorization
     in: header
 paths:
-  /user/currentMonth/accounts:
+  /user/accounts:
     get:
       tags:
         - Accounts Module
-      summary: Get all accounts for the current month
-      description: Show a list of the accounts for the current month
+      summary: Get all accounts
+      description: Show a list of the accounts
       parameters:
         - in: header
           name: token
@@ -44,7 +44,7 @@ paths:
         "500":
           description: Internal Server Error
 
-  /user/currentMonth/accounts/{accountId}:
+  /user/accounts/{accountId}:
     get:
       tags:
         - Accounts Module
@@ -78,14 +78,13 @@ paths:
           description: Forbidden - User does not have permission
         "500":
           description: Internal Server Error
-
-  /user/currentMonth/accounts/{accountId}/transactions:
+          
+  /user/accounts/{accountId}/{month}:
     get:
       tags:
-        - Transactions Module
-      summary: Get all transactions for the current month
-      description:
-        "Retrieve a list of transactions for the current month, for the selected account"
+        - Accounts Module
+      summary: Get state of the account for the choosen month
+      description: "display the account's state for the choosen month"
       parameters:
         - in: header
           name: token
@@ -96,6 +95,53 @@ paths:
           name: accountId
           type: integer
           description: ID of the account
+          required: true
+        - in: path
+          name: month
+          type: string
+          description: month parameter
+          required: true
+      security:
+        - Bearer: []
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/month"
+        "400":
+          description: Invalid Fields
+        "401":
+          description: Unauthorized - Token is missing or invalid
+        "403":
+          description: Forbidden - User does not have permission
+        "500":
+          description: Internal Server Error
+        
+
+  /user/accounts/{accountId}/{month}/transactions:
+    get:
+      tags:
+        - Transactions Module
+      summary: Get all transactions for the choosen month
+      description:
+        "Retrieve a list of transactions for the choosen month, for the selected account"
+      parameters:
+        - in: header
+          name: token
+          type: integer
+          description: token of the account
+          required: true
+        - in: path
+          name: accountId
+          type: integer
+          description: ID of the account
+          required: true
+        - in: path
+          name: month
+          type: string
+          description: month parameter
           required: true
       security:
         - Bearer: []
@@ -115,7 +161,7 @@ paths:
         "500":
           description: Internal Server Error
 
-  /user/currentMonth/accounts/{accountId}/transactions/{transactionId}:
+  /user/accounts/{accountId}/{month}/transactions/{transactionId}:
     get:
       tags:
         - Transactions Module
@@ -133,6 +179,11 @@ paths:
           name: accountId
           type: integer
           description: accountId of the account
+          required: true
+        - in: path
+          name: month
+          type: string
+          description: month parameter
           required: true
         - name: transactionId
           in: path
@@ -155,7 +206,7 @@ paths:
         "500":
           description: Internal Server Error
 
-  /user/currentMonth/accounts/{accountId}/transactions/{transactionId}/{categories}/{categoryId}:
+  /user/currentMonth/accounts/{accountId}/{month}/transactions/{transactionId}/{categories}/{categoryId}:
     patch:
       tags:
         - Transactions Module
@@ -174,6 +225,11 @@ paths:
           name: accountId
           type: integer
           description: accountId of the account
+          required: true
+        - in: path
+          name: month
+          type: string
+          description: month parameter
           required: true
         - in: path
           name: transactionId
@@ -208,7 +264,7 @@ paths:
         "500":
           description: Internal Server Error
 
-  /user/currentMonth/accounts/{accountId}/transactions/{transactionId}/note:
+  /user/currentMonth/accounts/{accountId}/{month}/transactions/{transactionId}/note:
     patch:
       tags:
         - Transactions Module
@@ -226,6 +282,11 @@ paths:
           name: accountId
           type: integer
           description: accountId of the account
+          required: true
+        - in: path
+          name: month
+          type: string
+          description: month parameter
           required: true
         - in: path
           name: transactionId
@@ -276,6 +337,15 @@ definitions:
       balance:
         type: number
         description: account balance
+        
+  month:
+    type: object
+    properties:
+      month:
+        type: string
+        items:
+          $ref: "#/definitions/month"
+        
 
   Transactions:
     type: object
