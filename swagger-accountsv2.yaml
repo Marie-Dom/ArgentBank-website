@@ -207,7 +207,7 @@ paths:
           description: Internal Server Error
 
   /user/currentMonth/accounts/{accountId}/{month}/transactions/{transactionId}/{categories}/{categoryId}:
-    patch:
+    put:
       tags:
         - Transactions Module
       summary: Change the category of a specific transaction
@@ -265,7 +265,7 @@ paths:
           description: Internal Server Error
 
   /user/currentMonth/accounts/{accountId}/{month}/transactions/{transactionId}/note:
-    patch:
+    put:
       tags:
         - Transactions Module
       summary: Change the transaction note
