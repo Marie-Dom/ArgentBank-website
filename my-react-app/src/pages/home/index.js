@@ -1,9 +1,9 @@
 import React from "react";
 import Hero from "../../components/hero";
 import FeatureInfo from "../../features/featureInfo";
-import Chat from "../../assets/img/icon-chat.png";
-import Money from "../../assets/img/icon-money.png";
-import Security from "../../assets/img/icon-security.png";
+import Chat from "../../assets/img/icon-chat.webp";
+import Money from "../../assets/img/icon-money.webp";
+import Security from "../../assets/img/icon-security.webp";
 
 const Home = () => {
   return (

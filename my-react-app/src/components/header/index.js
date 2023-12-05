@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import ArgentBankLogo from "../../assets/img/argentBankLogo.png";
+import ArgentBankLogo from "../../assets/img/argentBankLogo.webp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleUser,
