@@ -26,6 +26,7 @@ const EditUserName = () => {
 
   const handleCancel = () => {
     setUserName();
+    navigate("/user");
   };
 
   const firstName = useSelector((state) => state.user.firstName);

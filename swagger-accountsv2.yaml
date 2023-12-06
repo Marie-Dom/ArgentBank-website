@@ -14,35 +14,6 @@ securityDefinitions:
     name: Authorization
     in: header
 paths:
-  /user/accounts:
-    get:
-      tags:
-        - Accounts Module
-      summary: Get all accounts
-      description: Show a list of the accounts
-      parameters:
-        - in: header
-          name: token
-          type: integer
-          description: token of the account
-          required: true
-      security:
-        - Bearer: []
-      produces:
-        - application/json
-      responses:
-        "200":
-          description: Get accounts successfully
-          schema:
-            $ref: "#/definitions/accounts"
-        "400":
-          description: Invalid Fields
-        "401":
-          description: Unauthorized - Token is missing or invalid
-        "403":
-          description: Forbidden - User does not have permission
-        "500":
-          description: Internal Server Error
 
   /user/accounts/{accountId}:
     get:
@@ -120,29 +91,13 @@ paths:
           description: Internal Server Error
         
 
-  /user/accounts/{accountId}/{month}/transactions:
+  /transactions:
     get:
       tags:
         - Transactions Module
-      summary: Get all transactions for the choosen month
+      summary: Get all transactions for the current month
       description:
-        "Retrieve a list of transactions for the choosen month, for the selected account"
-      parameters:
-        - in: header
-          name: token
-          type: integer
-          description: token of the account
-          required: true
-        - in: path
-          name: accountId
-          type: integer
-          description: ID of the account
-          required: true
-        - in: path
-          name: month
-          type: string
-          description: month parameter
-          required: true
+        "Retrieve a list of transactions for the current month, for the selected account"
       security:
         - Bearer: []
       produces:
@@ -161,30 +116,15 @@ paths:
         "500":
           description: Internal Server Error
 
-  /user/accounts/{accountId}/{month}/transactions/{transactionId}:
+  /transactions/{transactionId}:
     get:
       tags:
         - Transactions Module
       summary: Get details of a specific transaction
-      description: "Retrieve detailed information about a specific transaction"
+      description: "Retrieve detailed informations about a specific transaction"
       security:
         - Bearer: []
       parameters:
-        - in: header
-          name: token
-          type: integer
-          description: token of the account
-          required: true
-        - in: path
-          name: accountId
-          type: integer
-          description: accountId of the account
-          required: true
-        - in: path
-          name: month
-          type: string
-          description: month parameter
-          required: true
         - name: transactionId
           in: path
           description: ID of the transaction to retrieve
@@ -196,7 +136,7 @@ paths:
         "200":
           description: Successful operation
           schema:
-            $ref: "#/definitions/TransactionId"
+            $ref: "#/definitions/TransactionDetails"
         "401":
           description: Unauthorized - Token is missing or invalid
         "403":
@@ -206,105 +146,34 @@ paths:
         "500":
           description: Internal Server Error
 
-  /user/currentMonth/accounts/{accountId}/{month}/transactions/{transactionId}/{categories}/{categoryId}:
     put:
       tags:
         - Transactions Module
-      summary: Change the category of a specific transaction
-      description:
-        Modifying details of a specific transaction
+      summary: Update information of a specific transaction
+      description: >-
+        Update details of a specific transaction (only 'Category' and 'Note' can
+        be modified)
       security:
         - Bearer: []
       parameters:
-        - in: header
-          name: token
-          type: integer
-          description: token of the account
+        - name: transactionId
+          in: path
+          description: ID of the transaction to update
           required: true
-        - in: path
-          name: accountId
-          type: integer
-          description: accountId of the account
-          required: true
-        - in: path
-          name: month
           type: string
-          description: month parameter
-          required: true
-        - in: path
-          name: transactionId
-          type: integer
-          description: transactionId of the account
-          required: true
-        - in: path
-          name: categories
-          type: integer
-          description: categories list
-          required: true
-        - in: path
-          name: categoryId
-          type: integer
-          description: categoryId
-          required: true
-      produces:
-        - application/merge-patch+json
-      responses:
-        "200":
-          description: Transaction's category has been successfully modified
-          schema:
-            $ref: "#/definitions/categoryId"
-        "400":
-          description: Invalid Fields
-        "401":
-          description: Unauthorized - Token is missing or invalid
-        "403":
-          description: Forbidden - User does not have permission
-        "404":
-          description: Transaction not found
-        "500":
-          description: Internal Server Error
-
-  /user/currentMonth/accounts/{accountId}/{month}/transactions/{transactionId}/note:
-    put:
-      tags:
-        - Transactions Module
-      summary: Change the transaction note
-      description: API for change the transaction note
-      produces:
-        - application/merge-patch+json
-      parameters:
-        - in: header
-          name: user token
-          type: integer
-          description: token of the account
-          required: true
-        - in: path
-          name: accountId
-          type: integer
-          description: accountId of the account
-          required: true
-        - in: path
-          name: month
-          type: string
-          description: month parameter
-          required: true
-        - in: path
-          name: transactionId
-          type: integer
-          description: transactionId of the account
-          required: true
         - in: body
-          name: note
-          description: note of the transaction
+          name: body
+          description: Update transaction payload
+          required: true
           schema:
-            $ref: "#/definitions/Note"
-      security:
-        - Bearer: []
+            $ref: '#/definitions/UpdateTransaction'
+      produces:
+        - application/json
       responses:
         "200":
-          description: Note's Transaction has been successfully modified
+          description: Transaction's informations have been successfully modified
           schema:
-            $ref: "#/definitions/Note"
+            $ref: "#/definitions/ApiResponse"
         "400":
           description: Invalid Fields
         "401":
@@ -355,46 +224,54 @@ definitions:
         items:
           $ref: "#/definitions/Transactions"
 
-  TransactionId:
+  TransactionDetails:
     type: object
     properties:
       transactionId:
-        type: number
+        type: string
+        description: ID of the transaction
       date:
-        type: number
-        description: transaction date
+        type: string
+        format: date
+        description: Date of the transaction
       description:
         type: string
-        description: transaction description
+        description: Description of the transaction
       amount:
         type: number
         description: amount number
       balance:
         type: number
-        description: balance number
+        description: Balance after the transaction
       transactionType:
         type: string
         description: transaction type
-      categories:
-        type: array
-        items:
-          type: object
-          properties:
-            categoryId:
-              type: number
-            label:
-              type: string
+  UpdateTransaction:
+    type: object
+    properties:
+      category:
+        type: string
+        description: Updated category of the transaction
       note:
         type: string
-
-  categoryId:
+        description: Updated note for the transaction
+    required:
+      - category
+      - note
+    additionalProperties: false
+  ApiResponse:
     type: object
     properties:
-      categoryId:
-        type: number
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
 
-  Note:
-    type: object
-    properties:
-      note:
-        type: "string"
+
