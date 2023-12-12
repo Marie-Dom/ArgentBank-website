@@ -77,7 +77,7 @@ const EditUserName = () => {
         <Button
           title="Cancel"
           className={"edit-button"}
-          onClick={handleCancel()}
+          onClick={() => handleCancel()}
         />
       </div>
     </div>
